@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Doctors
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="card-grid">
+
+        <div class="card">
+            {% if doctor.image %}
+            <img src="{{doctor.image.url}}" alt="Card Image">
+            {% else %}
+            <img src="{% static 'images/s1.jpg'%}" alt="Card Image">
+            {% endif %}
+            <div class="card-content">
+                <h2>{{doctor.name}}</h2>
+                <p>{{doctor.category}}</p>
+                <a href="">View Doctor</a>
+            </div>
+
+            <a href="{% url 'doc_edit' doctor.pk %}">Edit Doctor</a>
+        </div>
+       
+
+    </div>
+    {% endblock %}

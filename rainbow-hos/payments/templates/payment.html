@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+<h2>Pay Advance Fee</h2>
+<form action="{% url 'payment_success' %}" method="POST">
+  <script
+    src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="{{ razorpay_key }}"
+    data-amount="{{ payment.amount }}"
+    data-currency="INR"
+    data-order_id="{{ payment.id }}"
+    data-buttontext="Pay with Razorpay"
+    data-name="Hospital Appointment"
+    data-description="Advance Payment"
+    data-theme.color="#F37254">
+  </script>
+  <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+  <input type="hidden" name="razorpay_order_id" value="{{ payment.id }}">
+</form>

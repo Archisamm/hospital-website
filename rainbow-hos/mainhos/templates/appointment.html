@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Appointment
+{% endblock %}
+
+{% block content %}
+<div class="app_det">    
+<h1>Book Appointment</h1>
+<p><strong>Patient_Name:</strong> {{ Appointment.name }}</p>
+            <p><strong>Appointment Date:</strong> {{ Appointment.app_date|date:"d M Y, h:i A" }}</p>
+            <p><strong>Status:</strong> {{ Appointment.status }}</p>
+            <p><strong>advance_fee:</strong> ₹{{ Appointment.advancce_fee }}
+</p>
+
+</div>
+{% endblock content %}
+    <!-- <form method="post">
+        {% csrf_token %}
+        <div>
+          {{form.as_p }}
+            <button type="submit">Procced to Pay </button>
+        </div>
+    </form> -->
+
+

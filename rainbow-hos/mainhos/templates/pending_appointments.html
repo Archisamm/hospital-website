@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+<h1>Pending Appointments</h1>
+<ul>
+  {% for app in appointments %}
+    <li>{{ app.patient.name }} - {{ app.doctor.name }} on {{ app.app_date }} - ₹{{ app.advance_fee }}</li>
+  {% endfor %}
+</ul>

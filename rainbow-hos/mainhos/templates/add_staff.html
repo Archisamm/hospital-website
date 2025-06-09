@@ -1,0 +1,17 @@
+<h2>Add Staff Member</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
+
+
+
+
+<h2>Staff Members</h2>
+<ul>
+    {% for member in staff %}
+        <li>{{ member.first_name }} {{ member.last_name }} - {{ member.get_role_display }}</li>
+    {% endfor %}
+</ul>
