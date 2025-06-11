@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 class Patient(models.Model):
+    # appointment.patient = Patient.objects.get(user=request.user)
+
     GENDER_CHOICES = [
         ('m', 'Male'),
         ('f', 'Female'),

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'mainhos',
     'authentication',
     'payments',
+    'bookings'
 ]
 
 MIDDLEWARE = [
@@ -156,4 +157,12 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 RAZORPAY_KEY_ID = "rzp_test_ZCJQ1cH7keRXyX"
-RAZORPAY_KEY_SECRET ="BpxOHYvUbiSJ8016rVjaEC0"
+RAZORPAY_KEY_SECRET ="jBpxOHYvUbiSJ8016rVjaEC0"
+
+
+CSRF_TRUSTED_ORIGINS = [
+
+    'https://api.razorpay.com',
+]
+TIME_ZONE = 'Asia/kolkata'
+USE_TZ = True

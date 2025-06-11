@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
-
-
+from django.forms import ModelForm
+from .models import Patient
 
 class CustomRegisterForm(UserCreationForm):
     username = forms.CharField(
@@ -48,3 +48,14 @@ class CustomLoginForm(AuthenticationForm):
             'placeholder' : 'Enter your password'
         })
     )
+
+class PatientForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        exclude = ['user']
+        widgets = {
+            'dob': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'form-control',
+            }),
+        }

@@ -13,6 +13,7 @@ class Doctor(models.Model):
     gender = models.CharField(choices=[
         ('m','male'),('f','female'), ('o','others')
     ])
+    booking_amount = models.PositiveBigIntegerField(default=500)
     phno_pin = models.CharField(choices=[
     ('+1', '🇺🇸 United States (+1)'),
     ('+44', '🇬🇧 United Kingdom (+44)'),
@@ -87,51 +88,6 @@ class Doctor(models.Model):
     def __str__(self):
         return f"Dr. {self.name}"
 
-
-
-class Appointment(models.Model):
-    STATUS_CHOICES = [
-        ('pending', 'Pending Approval. Please wait...'),
-        ('scheduled', 'Scheduled'),
-        ('completed', 'Completed'),
-        ('cancelled', 'Cancelled'),
-        ('no_show', 'No Show'),
-        ('rescheduled', 'Rescheduled'),
-    ]
-
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    date_created = models.DateTimeField(auto_now_add=True)
-    app_date = models.DateTimeField()
-    status = models.CharField(choices=STATUS_CHOICES,default='pending', max_length=20)
-    advance_fee = models.DecimalField(max_digits=10, decimal_places=2, default=500.00)
-    payment_status = models.BooleanField(default=False) 
-
-    def clean(self):
-        super().clean()
-
-        # 1. Appointment date must be in the future
-        if self.app_date and self.date_created and self.app_date <= self.date_created:   
-            raise ValidationError("Appointment date must be in the future.")
-
-        # 2. Prevent double booking of the doctor at the same time
-        if self.app_date and self.doctor:
-            overlapping = Appointment.objects.filter(
-                doctor=self.doctor,
-                app_date=self.app_date
-            )
-            if self.pk:
-                overlapping = overlapping.exclude(pk=self.pk)
-
-            if overlapping.exists():
-                raise ValidationError("This doctor already has an appointment at the selected time.")
-
-    def save(self, *args, **kwargs):
-        self.full_clean()  # Validates before saving
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-           return f"{self.patient.name} with {self.doctor.name} on {self.app_date.strftime('%Y-%m-%d %H:%M')}"
 
 
 

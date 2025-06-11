@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+<h2>Book Appointment</h2>
+
+<p>
+  Booking with Dr. {{doctor.name}}.
+</p>
+<form method="post" class="w-40">
+  {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Book</button>
+</form>
+{% endblock %}
